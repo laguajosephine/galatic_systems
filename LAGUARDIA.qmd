@@ -122,3 +122,25 @@ knitr::kable(merged |>
              col.names = c("Name of the faction", "Number of star systems"))
 ```
 
+## Question 12
+
+```{r}
+#| message: false
+# first we drop the three fake factions
+control2 <- control |>
+  filter(!FACTION_ID == "A")
+control2 <- control2 |>
+  filter(!FACTION_ID == "U")
+control2 <- control2 |>
+  filter(!FACTION_ID == "I")
+
+# merging
+
+merged2 <- inner_join(main_data, control2)
+
+# graphical representation
+g <- ggplot(merged2, aes(x = FACTION_ID, y = `DISTANCE (LIGHTYEARS)`)) +
+  geom_point()
+g + coord_flip()
+```
+
