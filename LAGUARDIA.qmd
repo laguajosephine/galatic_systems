@@ -1,0 +1,18 @@
+---
+title: "Data management graded lab"
+author: "Joséphine Laguardia"
+format: html
+message: false
+code-fold: true
+---
+
+```{r configuration}
+#| message: false
+here::i_am("galatic_systems.Rproj")
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(vroom)
+library(here)
+```
+
