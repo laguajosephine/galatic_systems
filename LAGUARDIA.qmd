@@ -16,3 +16,44 @@ library(vroom)
 library(here)
 ```
 
+# Main data set import
+## Question 1
+
+I have moved the files in my directory and commited the main one.
+
+## Question 2
+
+Here's a link to my github repository:
+[here](https://github.com/laguajosephine/galatic_systems)
+
+## Question 3
+
+```{r loading the main data}
+#| message: false
+main_data <- vroom(here("data files/LIST%SYTEMS.csv"), delim= ":")
+# verification of the size of the file
+if (nrow(main_data) == 1038 || NCOL(main_data) == 8){
+  print("The loading of the data has been done correctly")
+}else {
+  print("The loading of the data has been done incorrectly")
+}
+# verification of the type of the variables
+
+```
+
+## Question 4
+
+```{r data description}
+knitr::kable(main_data |>
+             summarise(nrow(main_data),ncol(main_data),
+                       sum(is.na(Star_number)),
+                       sum(is.na(Star_name)),
+                       sum(is.na(`DISTANCE (LIGHTYEARS)`)),
+                       sum(is.na(TEMPERATURE)),
+                       sum(is.na(`Relative Mass`)),
+                       sum(is.na(radius)),
+                       sum(is.na(Luminosity)),
+                       sum(is.na(`Star Type`))),
+             col.names = c("Number of observations","Number of variables","Number of missing values for Star_number","Number of missing values for Star_name","Number of missing values for Distance","Number of missing values for Temperature","Number of missing values for Relative mass","Number of missing values for radius","Number of missing values for Luminosity","Number of missing values for Star Type" ))
+```
+
