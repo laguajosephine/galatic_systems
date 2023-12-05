@@ -17,14 +17,14 @@ library(here)
 ```
 
 # Main data set import
+
 ## Question 1
 
 I have moved the files in my directory and commited the main one.
 
 ## Question 2
 
-Here's a link to my github repository:
-[here](https://github.com/laguajosephine/galatic_systems)
+Here's a link to my github repository: [here](https://github.com/laguajosephine/galatic_systems)
 
 ## Question 3
 
@@ -56,12 +56,14 @@ knitr::kable(main_data |>
 ```
 
 # Introductory analysis
+
 ## Question 5
 
 ```{r}
 ggplot(main_data, aes(x= `Relative Mass`,y = `TEMPERATURE`))+
   geom_point(na.rm = TRUE)
 ```
+
 ## Question 6
 
 ```{r}
@@ -74,5 +76,49 @@ knitr::kable(main_data |>
                  min(Luminosity),max(Luminosity)),
              col.names = c("Min distance", "Max distance", "Min Temperature", "Max Temperature", "Min Relative mass", "Max Relative mass", "Min Radius", "Max radius", "Min Luminosity", "Max Luminosity"))
 
+```
+
+# Factions
+
+## Question 7
+
+I have commited the two data bases to Github.
+
+## Question 8
+
+```{r loading two more data files}
+#| message: false
+faction <- vroom(here("data files/THE-FACTIONS.csv"), delim = ":")
+control <- vroom(here("data files/SYTEM_FACTION.csv"), delim = ":")
+```
+
+I have loaded the two data sets.
+
+## Question 9
+
+```{r}
+#knitr::kable(control |>
+               #filter(FACTION_ID== "A", FACTION_ID== "I", FACTION_ID == "U") +
+               #group_by(FACTION_ID) |>
+               #summarise(n()))
+```
+
+
+## Question 10
+
+There are `r nrow(main_data) - nrow(control)` missing star systems in the SYTEM_FACTION file. 
+
+## QUESTION 11
+
+```{r}
+#| message: false
+# merging the two data bases
+merged <- left_join(control,faction)
+
+# representation
+knitr::kable(merged |>
+               group_by(`name of the faction`) |>
+               summarise(n()),
+             col.names = c("Name of the faction", "Number of star systems"))
 ```
 
