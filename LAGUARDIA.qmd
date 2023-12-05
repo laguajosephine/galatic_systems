@@ -30,15 +30,13 @@ Here's a link to my github repository:
 
 ```{r loading the main data}
 #| message: false
-main_data <- vroom(here("data files/LIST%SYTEMS.csv"), delim= ":")
+main_data <- vroom(here("data files/LIST%SYTEMS.csv"), delim= ":", col_types = cols(Star_number = "n",Star_name = "c", `DISTANCE (LIGHTYEARS)`= "n", TEMPERATURE = "n", `Relative Mass`= "n", radius = "n", Luminosity = "n", `Star Type`= "c"))
 # verification of the size of the file
 if (nrow(main_data) == 1038 || NCOL(main_data) == 8){
   print("The loading of the data has been done correctly")
 }else {
   print("The loading of the data has been done incorrectly")
 }
-# verification of the type of the variables
-
 ```
 
 ## Question 4
@@ -55,5 +53,26 @@ knitr::kable(main_data |>
                        sum(is.na(Luminosity)),
                        sum(is.na(`Star Type`))),
              col.names = c("Number of observations","Number of variables","Number of missing values for Star_number","Number of missing values for Star_name","Number of missing values for Distance","Number of missing values for Temperature","Number of missing values for Relative mass","Number of missing values for radius","Number of missing values for Luminosity","Number of missing values for Star Type" ))
+```
+
+# Introductory analysis
+## Question 5
+
+```{r}
+ggplot(main_data, aes(x= `Relative Mass`,y = `TEMPERATURE`))+
+  geom_point(na.rm = TRUE)
+```
+## Question 6
+
+```{r}
+knitr::kable(main_data |>
+               summarise(
+                 min(`DISTANCE (LIGHTYEARS)`),max(`DISTANCE (LIGHTYEARS)`),
+                 min(TEMPERATURE,na.rm = TRUE),max(TEMPERATURE,na.rm = TRUE),
+                 min(`Relative Mass`,na.rm = TRUE),max(`Relative Mass`,na.rm = TRUE),
+                 min(radius,na.rm = TRUE),max(radius,na.rm = TRUE),
+                 min(Luminosity),max(Luminosity)),
+             col.names = c("Min distance", "Max distance", "Min Temperature", "Max Temperature", "Min Relative mass", "Max Relative mass", "Min Radius", "Max radius", "Min Luminosity", "Max Luminosity"))
+
 ```
 
